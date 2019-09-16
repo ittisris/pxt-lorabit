@@ -1,0 +1,17 @@
+{
+    "name": "lorabit",
+    "version": "1.0.0",
+    "description": "LoRaWAN Extension Module for BBC micro: bit",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "lorabit.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true
+}
