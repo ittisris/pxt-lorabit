@@ -230,13 +230,15 @@ namespace loraBit {
 
     //%
     function wakeup(): void {
-        if (sleepmode == Running_State.SLEEP) {
-            while (!timeout())
-                basic.pause(100)
+    	if (sleepmode != Running_State.RUN) {
+        	if (sleepmode == Running_State.SLEEP) {
+            	while (!timeout())
+                	basic.pause(100)
+            }
+            sleepmode = Running_State.RUN
             timer_reset()
             msg(">Wake up")
         }
-        sleepmode = Running_State.RUN
     }
 
     control.inBackground(() => {
@@ -711,6 +713,7 @@ namespace loraBit {
             }
             sleepmode = Running_State.SLEEP
             writeByte(loraBit_Cmd.SLEEP, 0)
+            basic.pause(100)
             timer_reset(2000)
             msg(">Sleep Mode")
             pending = pending - 1
