@@ -211,6 +211,7 @@ namespace loraBit {
         temp[0] = register;
         temp[1] = value;
         pins.i2cWriteBuffer(I2C_ADDR, temp, false);
+        basic.pause(100)
     }
 
     //%
@@ -221,6 +222,7 @@ namespace loraBit {
         for (x = 0; x < buf.length; x++)
             temp[x + 1] = buf[x]
         pins.i2cWriteBuffer(I2C_ADDR, temp, false);
+        basic.pause(100)
     }
 
     //%
@@ -256,7 +258,7 @@ namespace loraBit {
             wait = true
 
             while (wait) {
-                basic.pause(200)
+                basic.pause(50)
 
                 if (pending > 0)
                     pause = true
@@ -289,7 +291,7 @@ namespace loraBit {
                             timer_reset()
                             tmp[0] = config + (joinMode * 128)
                             writeBuffer(loraBit_Cmd.CONFIG, tmp)
-                            basic.pause(100)
+                            //basic.pause(100)
                             msg("EV_JOINED")
                         }
                         else if (s & loraBit_Event.JOINING) {
@@ -313,7 +315,7 @@ namespace loraBit {
                                 msg(">WAIT JOIN")
                             }
                         }
-                        else //if (txrxpend) {
+                        else if (txrxpend) {
                             if (s & loraBit_Event.TX_COMPLETE) {
                                 dlmsg = ""
                                 ReceivedPort = 0
@@ -350,11 +352,11 @@ namespace loraBit {
                                 if (sleepmode == Running_State.PENDING) {
                                     sleepmode = Running_State.SLEEP
                                     writeByte(loraBit_Cmd.SLEEP, 0)
-                                    timer_reset(2000)
+                                    //timer_reset(2000)
                                     msg(">Sleep Mode")
                                 }
                             }//TX_COMPLETE
-                        //}//txrxpend
+                        }//txrxpend
                     }
                 }
             } //s!=s0
@@ -377,9 +379,9 @@ namespace loraBit {
         do {
             writeByte(loraBit_Cmd.RESET, 0)
 
-            t1 = 50   //10s
+            t1 = 100   //10s
             do {
-                basic.pause(200)
+                basic.pause(100)
                 s = getStatus()
                 t1--
             } while ((s != loraBit_Event.INITED) && (t1 > 0))
@@ -433,7 +435,7 @@ namespace loraBit {
 
         tmp[0] = config + (joinMode * 128)
         writeBuffer(loraBit_Cmd.CONFIG, tmp)
-        basic.pause(100)
+        //basic.pause(100)
         pending = pending - 1
     }
 
@@ -553,38 +555,38 @@ namespace loraBit {
             let tmp = pins.createBuffer(1)
             tmp[0] = config + (joinMode * 128)
             writeBuffer(loraBit_Cmd.CONFIG, tmp)
-            basic.pause(100)
+            //basic.pause(100)
 
             if (rejoin) {
                 if (joinMode == loraJoin_Mode.ABP) {
                     writeBuffer(loraBit_Cmd.DEVADDR_REG, DEVADDR)
-                    basic.pause(100)
+                    //basic.pause(100)
 
                     writeBuffer(loraBit_Cmd.NWKSKEY_REG, NWKSKEY)
-                    basic.pause(100)
+                    //basic.pause(100)
 
                     writeBuffer(loraBit_Cmd.APPSKEY_REG, APPSKEY)
-                    basic.pause(100)
+                    //basic.pause(100)
 
                     tmp = pins.createBuffer(4)
                     tmp.setNumber(NumberFormat.UInt32LE, 1, NETID);
                     writeBuffer(loraBit_Cmd.NETID_REG, tmp)
-                    basic.pause(100)
+                    //basic.pause(100)
                 }
                 else {
                     writeBuffer(loraBit_Cmd.DEVEUI_REG, DEVEUI)
-                    basic.pause(100)
+                    //basic.pause(100)
 
                     writeBuffer(loraBit_Cmd.APPEUI_REG, APPEUI)
-                    basic.pause(100)
+                    //basic.pause(100)
 
                     writeBuffer(loraBit_Cmd.APPKEY_REG, APPKEY)
-                    basic.pause(100)
+                    //basic.pause(100)
                 }
             }
 
             writeByte(loraBit_Cmd.JOIN, 0)
-            basic.pause(100)
+            //basic.pause(100)
             //console.log("EV_JOINING")
         }
         pending = pending - 1
@@ -713,7 +715,7 @@ namespace loraBit {
             }
             sleepmode = Running_State.SLEEP
             writeByte(loraBit_Cmd.SLEEP, 0)
-            basic.pause(100)
+            //basic.pause(100)
             timer_reset(2000)
             msg(">Sleep Mode")
             pending = pending - 1
@@ -779,7 +781,7 @@ namespace loraBit {
                         buf[i + 2] = tmp[i]
 
                     writeBuffer(loraBit_Cmd.SEND, buf);
-                    basic.pause(100)
+                    //basic.pause(100)
                     ReceivedPort = 0
                     ReceivedPayload = ""
                     timer_reset()
