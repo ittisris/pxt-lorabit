@@ -157,7 +157,7 @@ namespace loraBit {
     let txrxpend: boolean = false
     let pending: number = 0
     let rxWindows: boolean = false
-    let joinState: number = loraJoin_State.NOT_JOINED
+    let joinState: number = loraJoin_State.JOINED
     let rejoin: boolean = false
     let nack: number = 0
     let txto: number = input.runningTime() + TX_TIMEOUT_2    // TX,Rejoin timout
