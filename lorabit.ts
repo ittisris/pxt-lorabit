@@ -352,7 +352,7 @@ namespace loraBit {
                                 if (sleepmode == Running_State.PENDING) {
                                     sleepmode = Running_State.SLEEP
                                     writeByte(loraBit_Cmd.SLEEP, 0)
-                                    //timer_reset(2000)
+                                    timer_reset(2000)
                                     msg(">Sleep Mode")
                                 }
                             }//TX_COMPLETE
