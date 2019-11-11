@@ -281,7 +281,7 @@ namespace loraBit {
 			s = getStatus()
 
 			if (s != s0) {
-				console.log(s.toString())
+				//console.log(s.toString())
 				s0 = s
 				if (!(s == loraBit_Event.RESET || (s & loraBit_Event.TXRXPEND) != 0)) {
 					if (joinState != loraJoin_State.JOINED) { // RESET) || NOT_JOINED) || JOIN_FAIL
