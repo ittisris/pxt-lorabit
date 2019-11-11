@@ -131,7 +131,6 @@ namespace loraBit {
 			} else
 				v = (h - offset) << 4
 		}
-
 		return temp
 	}
 
@@ -175,7 +174,8 @@ namespace loraBit {
 		//console.log(txto.toString())
 		if (input.runningTime() > txto)
 			return (true)
-		return (false)
+		else
+			return (false)
 	}
 
 	function msg(m: string) {
@@ -244,25 +244,29 @@ namespace loraBit {
 	}
 
 	control.inBackground(() => {
-		let s0 = loraBit_Event.UNKNOWN
+		let s0: number = loraBit_Event.UNKNOWN
 		let s = s0
 		let rxbuffer: Buffer = pins.createBuffer(RX_PAYLOAD_MAX_LEN)
 		let tmp: Buffer = pins.createBuffer(1)
-		let i = 0
-		let len = 0
-		let dlmsg = ''
+		let i: number
+		let len: number
+		let dlmsg: string
+		let wait: boolean
 
 		while (true) {
 
-			do {
+			wait = true
+
+			while (wait) {
 				basic.pause(50)
 
 				if (pending > 0)
 					pause = true
 				else if (sleepmode == Running_State.SLEEP)
 					s0 = loraBit_Event.UNKNOWN
-
-			} while (!txrxpend || (pending > 0))
+				else if (txrxpend)
+					wait = false
+			}
 
 			if (timeout()) {
 				txrxpend = false
@@ -277,7 +281,7 @@ namespace loraBit {
 			s = getStatus()
 
 			if (s != s0) {
-				//console.log(s.toString())
+				console.log(s.toString())
 				s0 = s
 				if (!(s == loraBit_Event.RESET || (s & loraBit_Event.TXRXPEND) != 0)) {
 					if (joinState != loraJoin_State.JOINED) { // RESET) || NOT_JOINED) || JOIN_FAIL
@@ -332,7 +336,7 @@ namespace loraBit {
 										ReceivedPort = rxbuffer[0]
 										if (len > 1) {
 											for (i = 0; i < len - 1; i++)
-											ReceivedPayload = ReceivedPayload + byteToHexString(rxbuffer[i + 1])
+												ReceivedPayload = ReceivedPayload + byteToHexString(rxbuffer[i + 1])
 											dlmsg = dlmsg + "," + byteToHexString(ReceivedPort) + "," + ReceivedPayload
 										}
 									}
@@ -624,7 +628,8 @@ namespace loraBit {
 	export function joined(): boolean {
 		if (joinState == loraJoin_State.JOINED)
 			return true
-		return false
+		else
+			return false
 	}
 
 	/**
@@ -650,7 +655,8 @@ namespace loraBit {
 	export function available(): boolean {
 		if (!txrxpend)	// && (joinState == loraJoin_State.JOINED))
 			return true
-		return false
+		else
+			return false
 	}
 
 	/**
@@ -689,11 +695,10 @@ namespace loraBit {
 		else {
 			pause = false
 			pending = pending + 1
-			while (!pause) 
+			while (!pause)
 				basic.pause(100)
-		
-			writeByte(loraBit_Cmd.SLEEP, 0)
 			sleepmode = Running_State.SLEEP
+			writeByte(loraBit_Cmd.SLEEP, 0)
 			timer_reset(2000)
 			msg(">Sleep Mode")
 			pending = pending - 1
