@@ -818,11 +818,11 @@ namespace loraBit {
 	//% weight=98
 	//% help=loraBit/toHexString
 	//% blockId="loraBit_toHexString"
-	//% block="Convert Int8 |%n to Hexstring"
+	//% block="Convert Int8|%num to Hexstring"
 	//% icon="\uf085"
-	//% n.min=0 n.max=255
-	//% n.defl=0
-	export function toHexString(n: number): string {
-		return byteToHexString(n)
+	//% num.min=0 num.max=255
+	//% num.defl=0
+	export function toHexString(num: number): string {
+		return byteToHexString(num)
 	}
 }
