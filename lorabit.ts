@@ -812,15 +812,16 @@ namespace loraBit {
 	}
 
 	/**
-	 * Convert Int8 to Text.
+	 * Convert Int8 to Hexstring.
 	 * @param  to convert, eg: 10 -> "0A"
 	 */
 	//% weight=98
 	//% help=loraBit/toHexString
 	//% blockId="loraBit_toHexString"
-	//% block="Convert Int8 string|%text to text"
+	//% block="Convert Int8 |%n to Hexstring"
 	//% icon="\uf085"
-	//% text.defl="313233414243"
+	//% n.min=0 n.max=255
+	//% n.defl=0
 	export function toHexString(n: number): string {
 		return byteToHexString(n)
 	}
