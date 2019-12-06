@@ -810,4 +810,18 @@ namespace loraBit {
 			str = str + String.fromCharCode(temp[i])
 		return str
 	}
+
+	/**
+	 * Convert Int8 to Text.
+	 * @param  to convert, eg: 10 -> "0A"
+	 */
+	//% weight=98
+	//% help=loraBit/toHexString
+	//% blockId="loraBit_toHexString"
+	//% block="Convert Int8 string|%text to text"
+	//% icon="\uf085"
+	//% text.defl="313233414243"
+	export function toHexString(n: number): string {
+		return byteToHexString(n)
+	}
 }
