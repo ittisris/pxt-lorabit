@@ -144,7 +144,7 @@ namespace loraBit {
 	let ReceivedPort: number = 0
 	let ReceivedPayload: string = "0123456789ABCDEF0123456789ABCDEF"
 
-	let config = (1 * 64) + (5 % 8) * 8 + (2 % 8)    //(joinMode * 128) + 
+	let config: number = (1 * 64) + (5 % 8) * 8 + (2 % 8)    //(joinMode * 128) + 
 	let APPEUI: Buffer = pins.createBuffer(8); APPEUI.fill(0);
 	let DEVEUI: Buffer = pins.createBuffer(8); DEVEUI.fill(0);
 	let APPKEY: Buffer = pins.createBuffer(16); APPKEY.fill(0);
@@ -161,7 +161,7 @@ namespace loraBit {
 	let rejoin: boolean = false
 	let nack: number = 0
 	let txto: number = input.runningTime() + TX_TIMEOUT_2    // TX,Rejoin timout
-	let verbose = Verbose_Mode.Off
+	let verbose: number = Verbose_Mode.Off
 	let sleepmode: number = Running_State.RUN
 
 	//%
