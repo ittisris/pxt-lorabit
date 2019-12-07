@@ -145,13 +145,21 @@ namespace loraBit {
 	let ReceivedPayload: string = "0123456789ABCDEF0123456789ABCDEF"
 
 	let config: number = (1 * 64) + (5 % 8) * 8 + (2 % 8)    //(joinMode * 128) + 
-	let APPEUI: Buffer = pins.createBuffer(8); APPEUI.fill(0);
-	let DEVEUI: Buffer = pins.createBuffer(8); DEVEUI.fill(0);
-	let APPKEY: Buffer = pins.createBuffer(16); APPKEY.fill(0);
+	//let APPEUI: Buffer = pins.createBuffer(8); APPEUI.fill(0);
+    //let DEVEUI: Buffer = pins.createBuffer(8); DEVEUI.fill(0);
+    //let APPKEY: Buffer = pins.createBuffer(16); APPKEY.fill(0);
+    //let NETID: number = 19  //TTN Network ID
+    //let DEVADDR: Buffer = pins.createBuffer(4); DEVADDR.fill(0);
+    //let NWKSKEY: Buffer = pins.createBuffer(16); NWKSKEY.fill(0);
+    //let APPSKEY: Buffer = pins.createBuffer(16); APPSKEY.fill(0);
+
+	let APPEUI: Buffer;
+	let DEVEUI: Buffer;
+	let APPKEY: Buffer;
 	let NETID: number = 19  //TTN Network ID
-	let DEVADDR: Buffer = pins.createBuffer(4); DEVADDR.fill(0);
-	let NWKSKEY: Buffer = pins.createBuffer(16); NWKSKEY.fill(0);
-	let APPSKEY: Buffer = pins.createBuffer(16); APPSKEY.fill(0);
+	let DEVADDR: Buffer;
+	let NWKSKEY: Buffer;
+	let APPSKEY: Buffer;
 
 	let pause: boolean = false
 	let txrxpend: boolean = false
@@ -498,6 +506,10 @@ namespace loraBit {
 		while (!pause)
 			basic.pause(100)
 
+		DEVEUI = pins.createBuffer(8); DEVEUI.fill(0);
+		APPEUI = pins.createBuffer(8); APPEUI.fill(0);
+		APPSKEY = pins.createBuffer(16); APPSKEY.fill(0);
+
 		DEVEUI = HexStringToVal(DevEUI)
 		APPEUI = HexStringToVal(AppEUI)
 		APPKEY = HexStringToVal(AppKey)
@@ -523,6 +535,10 @@ namespace loraBit {
 		pending = pending + 1
 		while (!pause)
 			basic.pause(100)
+
+		DEVADDR = pins.createBuffer(4); DEVADDR.fill(0);
+		NWKSKEY = pins.createBuffer(16); NWKSKEY.fill(0);
+		APPSKEY = pins.createBuffer(16); APPSKEY.fill(0);
 
 		DEVADDR = HexStringToVal(DevAddr)
 		NWKSKEY = HexStringToVal(NwkSKey)
