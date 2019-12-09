@@ -266,7 +266,7 @@ namespace loraBit {
 			wait = true
 
 			while (wait) {
-				basic.pause(50)
+				basic.pause(100)
 
 				if (pending > 0)
 					pause = true
